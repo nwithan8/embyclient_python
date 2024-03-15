@@ -1,0 +1,45 @@
+name: Check for and publish new releases
+
+on:
+  schedule:
+    - cron: '0 */8 * * *'  # Every 8 hours
+
+jobs:
+  check_and_publish:
+    name: Check for and publish new releases to PyPI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+      - name: Run script to check and build new releases
+        run: |
+          sh check_and_publish_latest_release.sh
+      - name: Check for a Python dist folder
+        if: success()
+        run: |
+          if [ -d "Emby.SDK/SampleCode/RestApi/Clients/Python/dist" ]; then
+            echo "Python dist was built"
+          else
+            echo "Python dist was not built"
+            exit 1
+          fi
+      - name: Publish to PyPI
+        if: success()
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: Emby.SDK/SampleCode/RestApi/Clients/Python/dist/
+          password: ${{ secrets.PYPI_API_KEY }}
+      - name: Commit change to TXT files
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: '*.txt'
+          default_author: github_actions
+          message: "Last version and last run time updated"
+          push: true
+          pull: ''
+          new_branch: ''
+
