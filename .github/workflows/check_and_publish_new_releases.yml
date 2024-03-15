@@ -1,6 +1,7 @@
 name: Check for and publish new releases
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 */8 * * *'  # Every 8 hours
 
