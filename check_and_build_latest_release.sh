@@ -53,7 +53,8 @@ find . -type f -exec sed -i 's/embyclient-python/embyclient/g' {} + || true
 find . -type d -name "*embyclient-python*" -exec bash -c 'mv "$0" "${0/embyclient-python/embyclient}"' {} \; || true
 
 # Replace README.md with a better one
-cp "$ROOT_DIR"/better_readme.md README.md
+cp "$ROOT_DIR"/better_readme.md better_readme.md
+mv better_readme.md README.md
 
 # Replace "setup.py" with a better one
 # Copy the better setup.py to the project directory
