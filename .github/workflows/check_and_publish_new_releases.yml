@@ -18,7 +18,7 @@ jobs:
           python-version: 3.11
       - name: Run script to check and build new releases
         run: |
-          sh check_and_build_latest_release.sh
+          bash check_and_build_latest_release.sh
       - name: Check for a Python dist folder
         if: success()
         run: |

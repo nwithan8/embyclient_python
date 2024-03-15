@@ -47,13 +47,13 @@ cd Emby.SDK/SampleCode/RestApi/Clients/Python || exit 1
 echo "Fixing the bad stuff..."
 
 # Replace "embyclient-python" with "embyclient" in every file in the directory
-find . -type f -exec sed -i 's/embyclient-python/embyclient/g' {} +
+find . -type f -exec sed -i 's/embyclient-python/embyclient/g' {} + || true
 
 # Replace any folder with "embyclient-python" in the name with "embyclient"
-find . -type d -name "*embyclient-python*" -exec bash -c 'mv "$0" "${0/embyclient-python/embyclient}"' {} \;
+find . -type d -name "*embyclient-python*" -exec bash -c 'mv "$0" "${0/embyclient-python/embyclient}"' {} \; || true
 
-# Delete "ReadMe.md" and replace it with "README.md"
-rm ReadMe.md && cp "$ROOT_DIR"/better_readme.md README.md
+# Replace README.md with a better one
+cp "$ROOT_DIR"/better_readme.md README.md
 
 # Replace "setup.py" with a better one
 # Copy the better setup.py to the project directory
