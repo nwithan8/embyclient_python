@@ -2,8 +2,9 @@
 
 # This script checks if there is a new release of the project and if so, cleans and builds it.
 
-# Optionally define the root
-ROOT_DIR=${1:-'~'}
+# Define the root directory
+ROOT_DIR=$(pwd)
+echo "Root directory: $ROOT_DIR"
 
 # Check if there is a new release
 GITHUB_REPO="MediaBrowser/Emby.SDK"
@@ -15,10 +16,12 @@ LATEST_RELEASE_TAG=$(curl -s $GITHUB_RELEASES_URL | jq -r '.tag_name')
 # Read the last known release tag from latest_release.txt
 LAST_KNOWN_RELEASE_TAG=$(cat latest_release.txt)
 
+# Note last run time
+date > last_run.txt
+
 # If the latest release tag is the same as the last known release tag, exit
 if [ "$LATEST_RELEASE_TAG" == "$LAST_KNOWN_RELEASE_TAG" ]; then
     echo "No new release found."
-    date > last_run.txt
     exit 0
 fi
 
@@ -71,8 +74,5 @@ pip install --upgrade setuptools wheel twine
 # Build the project
 echo "Building the project..."
 python setup.py sdist bdist_wheel
-
-# Note last run time
-date > "$ROOT_DIR"/last_run.txt
 
 
