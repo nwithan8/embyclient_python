@@ -18,7 +18,7 @@ jobs:
           python-version: 3.11
       - name: Run script to check and build new releases
         run: |
-          bash check_and_build_latest_release.sh
+          bash check_and_build_latest_release.sh || exit 0
       - name: Check for a Python dist folder
         if: success()
         run: |
@@ -35,6 +35,7 @@ jobs:
           packages-dir: Emby.SDK/SampleCode/RestApi/Clients/Python/dist/
           password: ${{ secrets.PYPI_API_KEY }}
       - name: Commit change to TXT files
+        if: success()
         uses: EndBug/add-and-commit@v9
         with:
           add: '*.txt'

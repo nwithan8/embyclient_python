@@ -22,7 +22,7 @@ date > last_run.txt
 # If the latest release tag is the same as the last known release tag, exit
 if [ "$LATEST_RELEASE_TAG" == "$LAST_KNOWN_RELEASE_TAG" ]; then
     echo "No new release found."
-    exit 0
+    exit 1
 fi
 
 echo "New release found: $LATEST_RELEASE_TAG"
