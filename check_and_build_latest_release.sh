@@ -8,10 +8,10 @@ echo "Root directory: $ROOT_DIR"
 
 # Check if there is a new release
 GITHUB_REPO="MediaBrowser/Emby.SDK"
-GITHUB_RELEASES_URL="https://api.github.com/repos/$GITHUB_REPO/releases/latest"
+GITHUB_RELEASES_URL="https://api.github.com/repos/$GITHUB_REPO/releases"
 
-# Get the latest release tag
-LATEST_RELEASE_TAG=$(curl -s $GITHUB_RELEASES_URL | jq -r '.tag_name')
+# Get the release tag for the first entry in the releases
+LATEST_RELEASE_TAG=$(curl -s $GITHUB_RELEASES_URL | jq -r '.[0].tag_name')
 
 # Read the last known release tag from latest_release.txt
 LAST_KNOWN_RELEASE_TAG=$(cat latest_release.txt)
