@@ -12,6 +12,7 @@ GITHUB_RELEASES_URL="https://api.github.com/repos/$GITHUB_REPO/releases"
 
 # Get the release tag for the first entry in the releases
 LATEST_RELEASE_TAG=$(curl -s $GITHUB_RELEASES_URL | jq -r '.[0].tag_name')
+LATEST_RELEASE_TAG_LOWER=$(echo $LATEST_RELEASE_TAG | tr '[:upper:]' '[:lower:]')
 
 # Read the last known release tag from latest_release.txt
 LAST_KNOWN_RELEASE_TAG=$(cat latest_release.txt)
@@ -40,6 +41,12 @@ git clone $GITHUB_REPO_URL || true
 
 # Change to the Python project directory
 cd Emby.SDK/SampleCode/RestApi/Clients/Python || exit 1
+
+# If the new version contains "beta" in the tag, switch to the beta branch
+if [[ $LATEST_RELEASE_TAG_LOWER == *"beta"* ]]; then
+    echo "Switching to the beta branch..."
+    git checkout beta
+fi
 
 ### Everything below this is now in the Python project directory
 
