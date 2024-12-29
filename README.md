@@ -1,3 +1,7 @@
+## DEPRECATED
+
+After discussions with the Emby development team, management over an official Emby Python API client package will be migrated over to their systems. This repository and the corresponding PyPi package are now considered deprecated.
+
 # Emby Python Client
 
 A Python client for Emby Media Server's API.
