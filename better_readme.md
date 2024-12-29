@@ -29,23 +29,23 @@ import embyclient
 Configure a client instance:
 
 ```python
-import embyclient
-from embyclient.rest import ApiException
+import emby_client
+from emby_client.rest import ApiException
 
 # Configure API key authorization: apikeyauth
-configuration = embyclient.Configuration()
+configuration = emby_client.Configuration()
 configuration.api_key['api_key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api_key'] = 'Bearer'
 
 # create an instance of the API class
-client = embyclient.ApiClient(configuration)
+client = emby_client.ApiClient(configuration)
 ```
 
 Then use the client to interact via specific API services:
 
 ```python
-activity_log_service = embyclient.ActivityLogServiceApi(client)
+activity_log_service = emby_client.ActivityLogServiceApi(client)
 
 try:
     # Gets activity log entries
